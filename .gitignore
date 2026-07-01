@@ -1,0 +1,23 @@
+# Maven
+target/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Build files
+out/
+*.class
+
+# Logs
+*.log
+logs/
+
+# Windows
+Thumbs.db
+
+# macOS
+.DS_Store
+
+# Environment
+.env
