@@ -16,4 +16,7 @@ public interface CourseService {
     Course updateCourse(Course course);
 
     void deleteCourse(Long id);
+
+    // Dashboard
+    long getCourseCount();
 }

@@ -1,7 +1,10 @@
 package com.college.sms.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
@@ -17,17 +20,14 @@ public class Attendance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String studentName;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "student_id", nullable = false)
+    private Student student;
 
-    private String usn;
-
-    private String department;
-
-    private String semester;
-
-    private String subject;
-
+    @Column(nullable = false)
     private LocalDate attendanceDate;
 
+    @Column(nullable = false)
     private String status;
+
 }

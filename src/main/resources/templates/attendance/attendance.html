@@ -2,47 +2,67 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Attendance | College ERP</title>
 
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Attendance Management | College ERP</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
+
 </head>
 
 <body class="bg-light">
 
-<nav class="navbar navbar-dark bg-primary shadow">
+<!-- ================= Navbar ================= -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
 
     <div class="container-fluid">
 
         <a class="navbar-brand fw-bold">
+
             🎓 College ERP System
+
         </a>
 
-        <a th:href="@{/}" class="btn btn-light">
+        <a th:href="@{/}"
+           class="btn btn-light">
+
+            <i class="bi bi-speedometer2"></i>
+
             Dashboard
+
         </a>
 
     </div>
 
 </nav>
 
+<!-- ================= Main Container ================= -->
+
 <div class="container mt-4">
 
     <div class="card shadow">
 
+        <!-- ================= Header ================= -->
+
         <div class="card-header bg-success text-white">
 
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between align-items-center">
 
-                <h3>
+                <h3 class="mb-0">
 
-                    <i class="bi bi-calendar-check"></i>
+                    <i class="bi bi-calendar-check-fill"></i>
 
                     Attendance Management
 
@@ -50,6 +70,8 @@
 
                 <a th:href="@{/attendance/new}"
                    class="btn btn-light">
+
+                    <i class="bi bi-plus-circle"></i>
 
                     Mark Attendance
 
@@ -59,9 +81,44 @@
 
         </div>
 
+        <!-- ================= Body ================= -->
+
         <div class="card-body">
 
-            <table class="table table-bordered table-hover">
+            <!-- ================= Search ================= -->
+
+            <form th:action="@{/attendance}"
+                  method="get"
+                  class="row g-3 mb-4">
+
+                <div class="col-md-10">
+
+                    <input type="text"
+                           class="form-control"
+                           name="keyword"
+                           placeholder="Search by Student Name..."
+                           th:value="${keyword}">
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <button type="submit"
+                            class="btn btn-primary w-100">
+
+                        <i class="bi bi-search"></i>
+
+                        Search
+
+                    </button>
+
+                </div>
+
+            </form>
+
+            <!-- ================= Attendance Table ================= -->
+
+            <table class="table table-bordered table-hover align-middle">
 
                 <thead class="table-dark">
 
@@ -69,21 +126,13 @@
 
                     <th>ID</th>
 
-                    <th>Student</th>
+                    <th>Student Name</th>
 
-                    <th>USN</th>
-
-                    <th>Department</th>
-
-                    <th>Semester</th>
-
-                    <th>Subject</th>
-
-                    <th>Date</th>
+                    <th>Attendance Date</th>
 
                     <th>Status</th>
 
-                    <th>Actions</th>
+                    <th width="180">Actions</th>
 
                 </tr>
 
@@ -91,12 +140,12 @@
 
                 <tbody>
 
-                <tr th:if="${attendanceList.isEmpty()}">
+                <tr th:if="${#lists.isEmpty(attendanceList)}">
 
-                    <td colspan="9"
-                        class="text-center text-danger">
+                    <td colspan="5"
+                        class="text-center text-danger fw-bold">
 
-                        No Attendance Found
+                        No Attendance Records Found
 
                     </td>
 
@@ -106,29 +155,21 @@
 
                     <td th:text="${attendance.id}"></td>
 
-                    <td th:text="${attendance.studentName}"></td>
-
-                    <td th:text="${attendance.usn}"></td>
-
-                    <td th:text="${attendance.department}"></td>
-
-                    <td th:text="${attendance.semester}"></td>
-
-                    <td th:text="${attendance.subject}"></td>
+                    <td th:text="${attendance.student.firstName + ' ' + attendance.student.lastName}"></td>
 
                     <td th:text="${attendance.attendanceDate}"></td>
 
                     <td>
 
                         <span class="badge bg-success"
-                              th:if="${attendance.status=='Present'}">
+                              th:if="${attendance.status == 'Present'}">
 
                             Present
 
                         </span>
 
                         <span class="badge bg-danger"
-                              th:if="${attendance.status=='Absent'}">
+                              th:if="${attendance.status == 'Absent'}">
 
                             Absent
 
@@ -141,13 +182,17 @@
                         <a th:href="@{/attendance/edit/{id}(id=${attendance.id})}"
                            class="btn btn-warning btn-sm">
 
+                            <i class="bi bi-pencil-square"></i>
+
                             Edit
 
                         </a>
 
                         <a th:href="@{/attendance/delete/{id}(id=${attendance.id})}"
                            class="btn btn-danger btn-sm"
-                           onclick="return confirm('Delete attendance record?')">
+                           onclick="return confirm('Are you sure you want to delete this attendance record?')">
+
+                            <i class="bi bi-trash"></i>
 
                             Delete
 
@@ -166,6 +211,10 @@
     </div>
 
 </div>
+
+<!-- Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

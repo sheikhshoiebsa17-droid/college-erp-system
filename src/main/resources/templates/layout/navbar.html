@@ -1,28 +1,95 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+<div th:fragment="navbar">
 
-    <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
 
-        <a class="navbar-brand fw-bold">
+        <div class="container-fluid">
 
-            🎓 College ERP System
+            <h4 class="fw-bold mb-0">
 
-        </a>
+                College ERP Dashboard
 
-        <div class="ms-auto">
+            </h4>
 
-            <span class="text-white">
+            <div class="d-flex align-items-center">
 
-                Welcome Admin
+                <!-- Notification -->
 
-            </span>
+                <button class="btn btn-light me-3">
+
+                    <i class="bi bi-bell-fill"></i>
+
+                </button>
+
+                <!-- User Dropdown -->
+
+                <div class="dropdown">
+
+                    <button
+                            class="btn btn-primary dropdown-toggle"
+                            data-bs-toggle="dropdown">
+
+                        <i class="bi bi-person-circle"></i>
+
+                        <span sec:authentication="name"></span>
+
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+                        <li>
+
+                            <a class="dropdown-item" href="#">
+
+                                <i class="bi bi-person"></i>
+
+                                Profile
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a class="dropdown-item" href="#">
+
+                                <i class="bi bi-gear"></i>
+
+                                Settings
+
+                            </a>
+
+                        </li>
+
+                        <li><hr class="dropdown-divider"></li>
+
+                        <li>
+
+                            <a class="dropdown-item text-danger"
+                               th:href="@{/logout}">
+
+                                <i class="bi bi-box-arrow-right"></i>
+
+                                Logout
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
 
         </div>
 
-    </div>
+    </nav>
 
-</nav>
+</div>
 
 </html>

@@ -16,4 +16,8 @@ public interface FacultyService {
     Faculty updateFaculty(Faculty faculty);
 
     void deleteFaculty(Long id);
+
+    // Dashboard
+    long getFacultyCount();
+    List<Faculty> getLatestFaculty();
 }

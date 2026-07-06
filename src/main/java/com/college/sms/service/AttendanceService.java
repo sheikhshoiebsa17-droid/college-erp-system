@@ -16,4 +16,14 @@ public interface AttendanceService {
     Attendance updateAttendance(Attendance attendance);
 
     void deleteAttendance(Long id);
+
+    List<Attendance> searchAttendance(String keyword);
+
+    long getAttendanceCount();
+
+    long getPresentCountToday();
+
+    long getAbsentCountToday();
+
+    double getAttendancePercentage();
 }

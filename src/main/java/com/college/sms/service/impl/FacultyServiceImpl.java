@@ -41,4 +41,15 @@ public class FacultyServiceImpl implements FacultyService {
     public void deleteFaculty(Long id) {
         facultyRepository.deleteById(id);
     }
+
+    @Override
+    public long getFacultyCount() {
+        return facultyRepository.count();
+    }
+    @Override
+    public List<Faculty> getLatestFaculty() {
+
+        return facultyRepository.findTop5ByOrderByIdDesc();
+
+    }
 }

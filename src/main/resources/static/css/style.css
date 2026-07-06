@@ -1,31 +1,473 @@
-body{
+/* =====================================================
+   COLLEGE ERP SYSTEM
+   Professional Dashboard Style
+===================================================== */
 
-    background:#f4f6f9;
+/* ===========================
+   General
+=========================== */
 
-    font-family:Arial,sans-serif;
+body {
+    background-color: #f5f7fb;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===========================
+   Sidebar
+=========================== */
+
+.sidebar {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    width: 250px;
+
+    height: 100vh;
+
+    background: #1e293b;
+
+    color: white;
+
+    overflow-y: auto;
+
+    z-index: 1000;
 
 }
 
-.card{
+.sidebar-header {
 
-    border:none;
+    padding: 25px;
 
-    border-radius:10px;
+    text-align: center;
 
-    box-shadow:0 0 15px rgba(0,0,0,.1);
+    font-size: 22px;
+
+    font-weight: bold;
+
+    background: #0f172a;
+
+    border-bottom: 1px solid #334155;
 
 }
 
-table{
+.sidebar-menu {
 
-    background:white;
+    list-style: none;
+
+    padding: 0;
+
+    margin: 0;
 
 }
 
-.nav-link:hover{
+.sidebar-menu li {
 
-    background:#0d6efd;
+    width: 100%;
 
-    border-radius:5px;
+}
+
+.sidebar-menu li a {
+
+    display: block;
+
+    color: white;
+
+    text-decoration: none;
+
+    padding: 15px 25px;
+
+    transition: 0.3s;
+
+    font-size: 16px;
+
+}
+
+.sidebar-menu li a:hover {
+
+    background: #2563eb;
+
+    padding-left: 35px;
+
+}
+
+.sidebar-menu i {
+
+    margin-right: 10px;
+
+}
+
+/* ===========================
+   Main Content
+=========================== */
+
+.main-content {
+
+    margin-left: 250px;
+
+    padding: 30px;
+
+}
+
+/* ===========================
+   Dashboard Cards
+=========================== */
+
+.card {
+
+    border: none;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    transition: all .3s ease;
+
+}
+
+.card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow: 0 15px 35px rgba(0,0,0,.18);
+
+}
+
+/* Counter Animation */
+
+.card h2 {
+
+    transition: .3s;
+
+}
+
+.card:hover h2 {
+
+    transform: scale(1.08);
+
+}
+
+/* ===========================
+   Gradient Cards
+=========================== */
+
+.bg-primary {
+
+    background: linear-gradient(135deg,#0d6efd,#4f8cff)!important;
+
+}
+
+.bg-success {
+
+    background: linear-gradient(135deg,#198754,#43c17a)!important;
+
+}
+
+.bg-info {
+
+    background: linear-gradient(135deg,#0dcaf0,#5edfff)!important;
+
+}
+
+.bg-warning {
+
+    background: linear-gradient(135deg,#ffc107,#ffd95b)!important;
+
+}
+
+.bg-danger {
+
+    background: linear-gradient(135deg,#dc3545,#ff6b7a)!important;
+
+}
+
+/* Dashboard Icons */
+
+.card i.display-3 {
+
+    color: rgba(255,255,255,.35);
+
+}
+
+/* ===========================
+   Buttons
+=========================== */
+
+.btn {
+
+    border-radius: 10px;
+
+    transition: .3s;
+
+}
+
+.btn:hover {
+
+    transform: translateY(-2px);
+
+}
+
+/* ===========================
+   Tables
+=========================== */
+
+.table {
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+}
+
+.table-hover tbody tr:hover {
+
+    background: #f1f5f9;
+
+}
+
+/* ===========================
+   Charts
+=========================== */
+
+canvas {
+
+    max-height: 320px;
+
+}
+
+/* ===========================
+   Footer
+=========================== */
+
+.footer {
+
+    margin-top: 60px;
+
+    padding: 20px;
+
+    background: white;
+
+    border-top: 1px solid #ddd;
+
+    text-align: center;
+
+}
+
+.footer p {
+
+    margin: 0;
+
+}
+
+/* ===========================
+   Breadcrumb
+=========================== */
+
+.breadcrumb {
+
+    background: transparent;
+
+}
+
+/* ===========================
+   Quick Action Buttons
+=========================== */
+
+.quick-action-btn {
+
+    transition: .3s;
+
+}
+
+.quick-action-btn:hover {
+
+    transform: translateY(-4px);
+
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width:991px){
+
+    .sidebar{
+
+        width:220px;
+
+    }
+
+    .main-content{
+
+        margin-left:220px;
+
+        padding:20px;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .sidebar{
+
+        position:relative;
+
+        width:100%;
+
+        height:auto;
+
+    }
+
+    .main-content{
+
+        margin-left:0;
+
+        padding:15px;
+
+    }
+
+    .card{
+
+        margin-bottom:20px;
+
+    }
+
+}
+/* ======================================
+   Dashboard Fade Animation
+====================================== */
+
+.fade-in {
+
+    animation: fadeIn 0.8s ease-in-out;
+
+}
+
+@keyframes fadeIn {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(20px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+/* ======================================
+   Professional Analytics Cards
+====================================== */
+
+.analytics-card {
+
+    border: none;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    transition: .35s;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,.08);
+
+}
+
+.analytics-card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow: 0 20px 35px rgba(0,0,0,.18);
+
+}
+
+.analytics-card .card-body {
+
+    padding: 28px;
+
+}
+
+.analytics-card h2 {
+
+    font-size: 42px;
+
+    font-weight: bold;
+
+}
+
+.analytics-card small {
+
+    opacity: .9;
+
+}
+
+.analytics-icon {
+
+    font-size: 48px;
+
+    opacity: .25;
+
+    position: absolute;
+
+    right: 20px;
+
+    top: 20px;
+
+}
+/* ================= Charts ================= */
+
+.card canvas{
+
+    width:100% !important;
+
+    height:280px !important;
+
+}
+
+.card-header{
+
+    font-weight:600;
+
+    letter-spacing:.5px;
+
+}
+/* ================= Top Performer Card ================= */
+
+.rounded-circle{
+
+    object-fit: cover;
+
+    border: 4px solid #ffffff;
+
+    transition: .3s;
+
+}
+
+.rounded-circle:hover{
+
+    transform: scale(1.08);
+
+}
+
+.card hr{
+
+    opacity: .15;
+
+}
+
+.badge.fs-5{
+
+    border-radius: 20px;
 
 }
