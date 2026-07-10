@@ -1,11 +1,11 @@
 package com.college.sms.service;
 
+import com.college.sms.dto.DepartmentCountDTO;
 import com.college.sms.entity.Student;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
-import com.college.sms.dto.DepartmentCountDTO;
-import org.springframework.data.domain.Page;
 
 public interface StudentService {
 
@@ -19,11 +19,11 @@ public interface StudentService {
 
     void deleteStudent(Long id);
 
-    // Dashboard
     long getStudentCount();
-    List<Student> getLatestStudents();
-    List<DepartmentCountDTO> getDepartmentStatistics();
 
+    List<Student> getLatestStudents();
+
+    List<DepartmentCountDTO> getDepartmentStatistics();
 
     List<Student> searchStudents(String keyword);
 

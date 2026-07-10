@@ -38,23 +38,42 @@ public class SecurityConfig {
 
         http
 
+                // Disable CSRF for REST APIs
                 .csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests(auth -> auth
 
+                        // Public resources
                         .requestMatchers(
                                 "/login",
                                 "/css/**",
                                 "/js/**",
-                                "/images/**")
+                                "/images/**",
+
+                                // REST APIs
+                                "/api/**",
+
+                                // Swagger
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/v3/api-docs/**"
+
+                        )
                         .permitAll()
 
+                        // REST APIs
+                        .requestMatchers("/api/**")
+                        .permitAll()
+
+                        // Admin pages
                         .requestMatchers("/admin/**")
                         .hasRole("ADMIN")
 
+                        // Faculty pages
                         .requestMatchers("/faculty/**")
                         .hasAnyRole("ADMIN", "FACULTY")
 
+                        // Everything else requires login
                         .anyRequest()
                         .authenticated())
 
