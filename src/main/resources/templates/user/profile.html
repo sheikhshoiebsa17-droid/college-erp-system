@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile | College ERP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body class="bg-light">
+
+<!-- ================= Top Navbar ================= -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" th:href="@{/}">
+            🎓 College ERP System
+        </a>
+
+        <div class="ms-auto d-flex align-items-center gap-2">
+            <a th:href="@{/users}" class="btn btn-outline-light btn-sm">
+                <i class="bi bi-people-fill me-1"></i> Users Directory
+            </a>
+            <a th:href="@{/}" class="btn btn-light btn-sm">
+                <i class="bi bi-speedometer2 me-1"></i> Dashboard
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4 mb-5">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/users}">Users</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Profile</li>
+        </ol>
+    </nav>
+
+    <!-- Flash Alerts -->
+    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        <span th:text="${successMessage}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        <span th:text="${errorMessage}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- ================= Left Column: Profile Card ================= -->
+        <div class="col-lg-4 col-md-5">
+            <div class="card shadow-sm border-0 text-center p-4 mb-4">
+                <div class="mx-auto mb-3">
+                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center shadow"
+                         style="width: 100px; height: 100px; font-size: 45px;">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                </div>
+
+                <h4 class="fw-bold mb-1" th:text="${currentUser != null ? currentUser.username : #authentication.name}">
+                    Username
+                </h4>
+
+                <div class="mb-3">
+                    <span th:if="${currentUser != null && currentUser.role == 'ADMIN'}" class="badge bg-danger px-3 py-2">
+                        <i class="bi bi-shield-lock-fill me-1"></i> Administrator
+                    </span>
+                    <span th:if="${currentUser != null && currentUser.role == 'FACULTY'}" class="badge bg-primary px-3 py-2">
+                        <i class="bi bi-person-badge-fill me-1"></i> Academic Faculty
+                    </span>
+                    <span th:if="${currentUser != null && currentUser.role == 'STUDENT'}" class="badge bg-info text-dark px-3 py-2">
+                        <i class="bi bi-mortarboard-fill me-1"></i> Student
+                    </span>
+                </div>
+
+                <ul class="list-group list-group-flush text-start small">
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-2 px-0">
+                        <span class="text-muted"><i class="bi bi-hash me-1"></i> User ID:</span>
+                        <span class="fw-bold" th:text="${currentUser != null ? currentUser.id : '-'}">-</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-2 px-0">
+                        <span class="text-muted"><i class="bi bi-activity me-1"></i> Status:</span>
+                        <span th:if="${currentUser != null && currentUser.enabled}" class="badge bg-success-subtle text-success border border-success">
+                            Active
+                        </span>
+                        <span th:if="${currentUser != null && !currentUser.enabled}" class="badge bg-danger-subtle text-danger border border-danger">
+                            Disabled
+                        </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center py-2 px-0">
+                        <span class="text-muted"><i class="bi bi-key me-1"></i> Encryption:</span>
+                        <span class="badge bg-secondary-subtle text-secondary border">BCrypt Hashed</span>
+                    </li>
+                </ul>
+
+                <hr class="my-3">
+
+                <a th:href="@{/logout}" class="btn btn-outline-danger w-100">
+                    <i class="bi bi-box-arrow-right me-1"></i> Log Out
+                </a>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="card shadow-sm border-0 p-3">
+                <h6 class="fw-bold text-muted text-uppercase small mb-3">Quick Navigation</h6>
+                <div class="d-grid gap-2">
+                    <a th:href="@{/students}" class="btn btn-sm btn-outline-primary text-start">
+                        <i class="bi bi-people-fill me-2"></i> Students Directory
+                    </a>
+                    <a th:href="@{/faculty}" class="btn btn-sm btn-outline-success text-start">
+                        <i class="bi bi-person-badge-fill me-2"></i> Faculty Directory
+                    </a>
+                    <a th:href="@{/courses}" class="btn btn-sm btn-outline-info text-start">
+                        <i class="bi bi-book-fill me-2"></i> Courses Catalog
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= Right Column: Security & Password ================= -->
+        <div class="col-lg-8 col-md-7">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-white py-3 border-bottom">
+                    <h5 class="fw-bold mb-0">
+                        <i class="bi bi-shield-lock text-primary me-2"></i> Security & Password Management
+                    </h5>
+                </div>
+
+                <div class="card-body p-4">
+                    <form th:action="@{/users/profile/change-password}" method="post">
+
+                        <!-- Current Password -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">
+                                Current Password
+                            </label>
+                            <input type="password"
+                                   name="oldPassword"
+                                   class="form-control"
+                                   placeholder="Enter your current password"
+                                   required>
+                        </div>
+
+                        <div class="row">
+                            <!-- New Password -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">
+                                    New Password
+                                </label>
+                                <input type="password"
+                                       name="newPassword"
+                                       class="form-control"
+                                       placeholder="Enter at least 4 characters"
+                                       minlength="4"
+                                       required>
+                            </div>
+
+                            <!-- Confirm New Password -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">
+                                    Confirm New Password
+                                </label>
+                                <input type="password"
+                                       name="confirmPassword"
+                                       class="form-control"
+                                       placeholder="Re-enter new password"
+                                       minlength="4"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="form-text text-muted mb-4">
+                            <i class="bi bi-info-circle me-1"></i> Passwords must match and contain at least 4 characters. Your new password will be encrypted using BCrypt before persisting to the database.
+                        </div>
+
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-check-circle-fill me-1"></i> Update Password
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+
+            <!-- Role Permissions Overview -->
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white py-3 border-bottom">
+                    <h5 class="fw-bold mb-0">
+                        <i class="bi bi-award text-success me-2"></i> Role Privileges
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-borderless align-middle mb-0">
+                            <tbody>
+                                <tr>
+                                    <td><i class="bi bi-check-circle-fill text-success me-2"></i> Academic Operations (Attendance & Marks)</td>
+                                    <td><span class="badge bg-success">Granted</span></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="bi bi-check-circle-fill text-success me-2"></i> Student and Faculty Registries</td>
+                                    <td><span class="badge bg-success">Granted</span></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="bi bi-check-circle-fill text-success me-2"></i> PDF & Excel Report Exports</td>
+                                    <td><span class="badge bg-success">Granted</span></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="bi bi-check-circle-fill text-success me-2"></i> User Account & System Administration</td>
+                                    <td>
+                                        <span th:if="${currentUser != null && currentUser.role == 'ADMIN'}" class="badge bg-danger">Full Admin Access</span>
+                                        <span th:unless="${currentUser != null && currentUser.role == 'ADMIN'}" class="badge bg-secondary">Restricted</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
