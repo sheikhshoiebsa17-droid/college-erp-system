@@ -1,0 +1,33 @@
+databases:
+  - name: college-erp-db
+    databaseName: college_erp
+    user: college_erp_user
+    plan: free
+
+services:
+  - type: web
+    name: college-erp-system
+    runtime: docker
+    repo: https://github.com/sheikhshoiebsa17-droid/college-erp-system
+    branch: main
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: college-erp-db
+          property: connectionURI
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: college-erp-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: college-erp-db
+          property: password
+      - key: PORT
+        value: 8080
+      - key: JAVA_TOOL_OPTIONS
+        value: "-Xmx256m -Xms128m"
