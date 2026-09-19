@@ -1,0 +1,7 @@
+target/
+.git/
+.idea/
+*.iml
+screenshots/
+*.md
+.env
